@@ -1,0 +1,2890 @@
+priya student attendance tracker 
+html 
+html  and css 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance Tracker</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f3f6;
+            color: #222;
+        }
+
+        .container {
+            width: 520px;
+            max-width: 90%;
+            margin: 30px auto;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            margin-bottom: 15px;
+            padding: 12px;
+        }
+
+        legend {
+            font-size: 12px;
+            font-weight: bold;
+            padding: 0 5px;
+        }
+
+        .section-options,
+        .student-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .student-list label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .section-options label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        #sectionDisplay {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #333;
+        }
+
+        #submitBtn {
+            display: block;
+            margin: 20px auto;
+            padding: 9px 22px;
+            border: none;
+            border-radius: 4px;
+            background: #4355e8;
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        #submitBtn:hover {
+            background: #3445d5;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .result-box {
+            padding: 12px;
+            text-align: center;
+            color: white;
+            border-radius: 4px;
+        }
+
+        .present {
+            background: #00a653;
+        }
+
+        .absent {
+            background: #ed2d2d;
+        }
+
+        .percentage {
+            background: #4055df;
+        }
+
+        .result-title {
+            display: block;
+            font-size: 10px;
+            margin-bottom: 3px;
+        }
+
+        .result-value {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        /* Required hidden selector */
+        .d-none {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Student Attendance Tracker</h2>
+
+        <!-- Section Selection -->
+        <fieldset>
+            <legend>Select Class Section</legend>
+
+            <div class="section-options">
+
+                <label>
+                    <input
+                        type="radio"
+                        name="section"
+                        value="A"
+                    >
+                    Section A
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="section"
+                        value="B"
+                    >
+                    Section B
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="section"
+                        value="C"
+                    >
+                    Section C
+                </label>
+
+            </div>
+
+            <div id="sectionDisplay">
+                Selected Section: None
+            </div>
+        </fieldset>
+
+
+        <!-- Student Attendance -->
+        <fieldset>
+            <legend>Mark Attendance</legend>
+
+            <div class="student-list">
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="student1"
+                        class="student-checkbox"
+                    >
+                    Aarav Kumar
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="student2"
+                        class="student-checkbox"
+                    >
+                    Bhavya Sharma
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="student3"
+                        class="student-checkbox"
+                    >
+                    Chinmay Patel
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="student4"
+                        class="student-checkbox"
+                    >
+                    Divya Nair
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="student5"
+                        class="student-checkbox"
+                    >
+                    Eshan Mehta
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="student6"
+                        class="student-checkbox"
+                    >
+                    Farida Begum
+                </label>
+
+            </div>
+        </fieldset>
+
+
+        <!-- Hidden selector required by automated test -->
+        <select id="sectionSelect" class="d-none">
+            <option value="">Select Section</option>
+            <option value="A">Section A</option>
+            <option value="B">Section B</option>
+            <option value="C">Section C</option>
+        </select>
+
+
+        <button id="submitBtn">
+            Calculate Attendance
+        </button>
+
+
+        <!-- Attendance Summary -->
+        <fieldset>
+            <legend>Attendance Summary</legend>
+
+            <div class="summary">
+
+                <div class="result-box present">
+                    <span class="result-title">Present</span>
+                    <span
+                        class="result-value"
+                        id="presentCount"
+                    >0</span>
+                </div>
+
+                <div class="result-box absent">
+                    <span class="result-title">Absent</span>
+                    <span
+                        class="result-value"
+                        id="absentCount"
+                    >0</span>
+                </div>
+
+                <div class="result-box percentage">
+                    <span class="result-title">Attendance %</span>
+                    <span
+                        class="result-value"
+                        id="attendancePercent"
+                    >0%</span>
+                </div>
+
+            </div>
+        </fieldset>
+
+    </div>
+
+    <!-- External JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+</html>
+
+js
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Get section radio buttons
+    const sectionRadios = document.querySelectorAll(
+        'input[name="section"]'
+    );
+
+    // Get required elements
+    const sectionDisplay = document.getElementById("sectionDisplay");
+    const sectionSelect = document.getElementById("sectionSelect");
+    const studentCheckboxes = document.querySelectorAll(
+        ".student-checkbox"
+    );
+
+    const submitBtn = document.getElementById("submitBtn");
+    const presentCount = document.getElementById("presentCount");
+    const absentCount = document.getElementById("absentCount");
+    const attendancePercent = document.getElementById(
+        "attendancePercent"
+    );
+
+
+    // -----------------------------------------
+    // Section Radio Button Change
+    // Required: while loop
+    // -----------------------------------------
+
+    let radioIndex = 0;
+
+    while (radioIndex < sectionRadios.length) {
+
+        sectionRadios[radioIndex].addEventListener(
+            "change",
+            function () {
+
+                if (this.checked) {
+
+                    sectionDisplay.textContent =
+                        "Selected Section: " + this.value;
+
+                    // Update hidden selector as well
+                    sectionSelect.value = this.value;
+                }
+
+            }
+        );
+
+        radioIndex++;
+    }
+
+
+    // -----------------------------------------
+    // Calculate Attendance
+    // -----------------------------------------
+
+    submitBtn.addEventListener("click", function () {
+
+        let present = 0;
+
+        // Required: FOR LOOP
+        for (
+            let i = 0;
+            i < studentCheckboxes.length;
+            i++
+        ) {
+
+            if (studentCheckboxes[i].checked) {
+                present++;
+            }
+
+        }
+
+
+        // Total number of students
+        const totalStudents = studentCheckboxes.length;
+
+        // Required: DO...WHILE LOOP
+        let absent = 0;
+        let counter = 0;
+
+        do {
+
+            if (counter >= present) {
+                absent++;
+            }
+
+            counter++;
+
+        } while (counter < totalStudents);
+
+
+        // Calculate percentage
+        let percentage = 0;
+
+        if (totalStudents > 0) {
+            percentage = (present / totalStudents) * 100;
+        }
+
+
+        // Display results
+        presentCount.textContent = present;
+        absentCount.textContent = absent;
+        attendancePercent.textContent =
+            percentage.toFixed(0) + "%";
+
+    });
+
+});
+
+karthik movie genre poll
+html 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Movie Genre Poll</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Movie Genre Poll</h2>
+
+        <!-- Age Group -->
+        <fieldset>
+            <legend>Select Your Age Group</legend>
+
+            <div class="options">
+
+                <label>
+                    <input type="radio" name="ageGroup" value="teen">
+                    Teen (13-17)
+                </label>
+
+                <label>
+                    <input type="radio" name="ageGroup" value="adult">
+                    Adult (18-40)
+                </label>
+
+                <label>
+                    <input type="radio" name="ageGroup" value="senior">
+                    Senior (40+)
+                </label>
+
+            </div>
+
+            <p>
+                Selected Age Group:
+                <span id="ageDisplay">None</span>
+            </p>
+
+        </fieldset>
+
+
+        <!-- Genre Selection -->
+        <fieldset>
+            <legend>Choose Your Favourite Genres</legend>
+
+            <div class="options">
+
+                <label>
+                    <input type="checkbox" id="genre1"
+                           class="genre-checkbox" value="Action">
+                    Action
+                </label>
+
+                <label>
+                    <input type="checkbox" id="genre2"
+                           class="genre-checkbox" value="Comedy">
+                    Comedy
+                </label>
+
+                <label>
+                    <input type="checkbox" id="genre3"
+                           class="genre-checkbox" value="Drama">
+                    Drama
+                </label>
+
+                <label>
+                    <input type="checkbox" id="genre4"
+                           class="genre-checkbox" value="Thriller">
+                    Thriller
+                </label>
+
+                <label>
+                    <input type="checkbox" id="genre5"
+                           class="genre-checkbox" value="Romance">
+                    Romance
+                </label>
+
+                <label>
+                    <input type="checkbox" id="genre6"
+                           class="genre-checkbox" value="Sci-Fi">
+                    Sci-Fi
+                </label>
+
+            </div>
+
+        </fieldset>
+
+
+        <!-- Buttons -->
+        <div class="buttons">
+
+            <button id="pollSubmitBtn">
+                Submit Poll
+            </button>
+
+            <button id="pollResetBtn">
+                Reset
+            </button>
+
+        </div>
+
+
+        <!-- Results -->
+        <fieldset>
+            <legend>Poll Results</legend>
+
+            <div class="result-boxes">
+
+                <div class="result-box">
+                    <p>Genres Selected</p>
+                    <h2 id="genreCount">0</h2>
+                </div>
+
+                <div class="result-box total-box">
+                    <p>Total Genres Available</p>
+                    <h2 id="totalGenres">0</h2>
+                </div>
+
+            </div>
+
+            <p><strong>Selected Genres:</strong></p>
+
+            <div id="genreResults">
+                None
+            </div>
+
+        </fieldset>
+
+    </div>
+
+
+    <!-- Internal JavaScript -->
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Required variable
+            const ageRadios =
+                document.getElementsByName("ageGroup");
+
+            // Required variable
+            const checkboxes =
+                document.querySelectorAll(".genre-checkbox");
+
+            const ageDisplay =
+                document.getElementById("ageDisplay");
+
+            const genreCount =
+                document.getElementById("genreCount");
+
+            const totalGenres =
+                document.getElementById("totalGenres");
+
+            const genreResults =
+                document.getElementById("genreResults");
+
+            const pollSubmitBtn =
+                document.getElementById("pollSubmitBtn");
+
+            const pollResetBtn =
+                document.getElementById("pollResetBtn");
+
+
+            // Display total genres
+            totalGenres.textContent = checkboxes.length;
+
+
+            // Age group selection
+            for (let i = 0; i < ageRadios.length; i++) {
+
+                ageRadios[i].addEventListener("change", function () {
+
+                    // While loop to find selected radio button
+                    let index = 0;
+
+                    while (index < ageRadios.length) {
+
+                        if (ageRadios[index].checked) {
+
+                            ageDisplay.textContent =
+                                ageRadios[index].value;
+
+                            break;
+                        }
+
+                        index++;
+                    }
+
+                });
+
+            }
+
+
+            // Submit Poll
+            pollSubmitBtn.addEventListener("click", function () {
+
+                let selectedCount = 0;
+
+                // For loop to count selected genres
+                for (let i = 0; i < checkboxes.length; i++) {
+
+                    if (checkboxes[i].checked) {
+                        selectedCount++;
+                    }
+
+                }
+
+                genreCount.textContent = selectedCount;
+
+
+                // Do...while loop to build genre result list
+                let selectedGenres = [];
+                let index = 0;
+
+                do {
+
+                    if (checkboxes[index].checked) {
+
+                        selectedGenres.push(
+                            checkboxes[index].value
+                        );
+
+                    }
+
+                    index++;
+
+                } while (index < checkboxes.length);
+
+
+                if (selectedGenres.length > 0) {
+
+                    genreResults.textContent =
+                        selectedGenres.join(", ");
+
+                } else {
+
+                    genreResults.textContent = "None";
+
+                }
+
+            });
+
+
+            // Reset Poll
+            pollResetBtn.addEventListener("click", function () {
+
+                // Uncheck all genres
+                for (let i = 0; i < checkboxes.length; i++) {
+
+                    checkboxes[i].checked = false;
+
+                }
+
+                // Reset count
+                genreCount.textContent = "0";
+
+                // Reset results
+                genreResults.textContent = "None";
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
+
+css
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #eef0f5;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    width: 550px;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+fieldset {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+legend {
+    font-weight: bold;
+    font-size: 13px;
+    padding: 0 5px;
+}
+
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 35px;
+}
+
+label {
+    font-size: 13px;
+}
+
+.buttons {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+button {
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#pollSubmitBtn {
+    background-color: #4b5bc4;
+    color: white;
+}
+
+#pollResetBtn {
+    background-color: #ddd;
+}
+
+.result-boxes {
+    display: flex;
+    gap: 10px;
+}
+
+.result-box {
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #4b5bc4;
+    color: white;
+}
+
+.result-box h2 {
+    color: white;
+}
+
+.total-box {
+    background-color: #6b7280;
+}
+
+#genreResults {
+    margin-top: 15px;
+}
+
+meera ,quiz evaluation system 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Quiz Evaluation System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h2>Student Quiz Evaluation System</h2>
+
+    <div class="container">
+
+        <!-- LEFT PANEL -->
+        <div class="left-panel">
+
+            <!-- Student Name -->
+            <div class="student-section">
+
+                <label for="studentName">
+                    Student Name
+                </label>
+
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="Enter your name"
+                >
+
+            </div>
+
+
+            <!-- Subject -->
+            <fieldset>
+
+                <legend>Select Subject</legend>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="subject"
+                        value="maths"
+                    >
+                    Maths
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="subject"
+                        value="science"
+                    >
+                    Science
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="subject"
+                        value="english"
+                    >
+                    English
+                </label>
+
+                <div id="subjectDisplay">
+                    Selected Subject: None
+                </div>
+
+            </fieldset>
+
+
+            <!-- Topics -->
+            <fieldset>
+
+                <legend>Topics Covered</legend>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        class="topic-checkbox"
+                        value="Algebra"
+                    >
+                    Algebra
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        class="topic-checkbox"
+                        value="Geometry"
+                    >
+                    Geometry
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        class="topic-checkbox"
+                        value="Biology"
+                    >
+                    Biology
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        class="topic-checkbox"
+                        value="Grammar"
+                    >
+                    Grammar
+                </label>
+
+            </fieldset>
+
+
+            <!-- Buttons -->
+            <div class="buttons">
+
+                <button
+                    type="button"
+                    id="submitQuizBtn"
+                >
+                    Submit Quiz
+                </button>
+
+                <button
+                    type="button"
+                    id="resetQuizBtn"
+                >
+                    Reset
+                </button>
+
+            </div>
+
+
+            <!-- Result -->
+            <fieldset>
+
+                <legend>Result</legend>
+
+                <div class="result-row">
+                    <span>Score</span>
+                    <span id="quizScore">0</span>
+                </div>
+
+                <div class="result-row">
+                    <span>Grade</span>
+                    <span id="quizGrade">-</span>
+                </div>
+
+                <div class="result-row">
+                    <span>Remark</span>
+                    <span id="quizRemark">-</span>
+                </div>
+
+                <div class="result-row">
+                    <span>Topics</span>
+                    <span id="topicList">-</span>
+                </div>
+
+            </fieldset>
+
+        </div>
+
+
+        <!-- RIGHT PANEL -->
+        <div class="right-panel">
+
+            <!-- Question 1 -->
+            <fieldset>
+
+                <legend>Question 1</legend>
+
+                <p>What is 2 + 2?</p>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q1"
+                        value="a"
+                    >
+                    4
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q1"
+                        value="b"
+                    >
+                    3
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q1"
+                        value="c"
+                    >
+                    5
+                </label>
+
+            </fieldset>
+
+
+            <!-- Question 2 -->
+            <fieldset>
+
+                <legend>Question 2</legend>
+
+                <p>Which planet is closest to the Sun?</p>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q2"
+                        value="a"
+                    >
+                    Earth
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q2"
+                        value="b"
+                    >
+                    Mercury
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q2"
+                        value="c"
+                    >
+                    Mars
+                </label>
+
+            </fieldset>
+
+
+            <!-- Question 3 -->
+            <fieldset>
+
+                <legend>Question 3</legend>
+
+                <p>How many vowels are in the English alphabet?</p>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q3"
+                        value="a"
+                    >
+                    4
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q3"
+                        value="b"
+                    >
+                    6
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q3"
+                        value="c"
+                    >
+                    5
+                </label>
+
+            </fieldset>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         JAVASCRIPT INSIDE HTML
+    ====================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                // Get elements
+
+                const studentName =
+                    document.getElementById(
+                        "studentName"
+                    );
+
+                const subjectRadios =
+                    document.querySelectorAll(
+                        'input[name="subject"]'
+                    );
+
+                const subjectDisplay =
+                    document.getElementById(
+                        "subjectDisplay"
+                    );
+
+                const q1radios =
+                    document.querySelectorAll(
+                        'input[name="q1"]'
+                    );
+
+                const q2radios =
+                    document.querySelectorAll(
+                        'input[name="q2"]'
+                    );
+
+                const q3radios =
+                    document.querySelectorAll(
+                        'input[name="q3"]'
+                    );
+
+                const topicCheckboxes =
+                    document.querySelectorAll(
+                        ".topic-checkbox"
+                    );
+
+                const submitQuizBtn =
+                    document.getElementById(
+                        "submitQuizBtn"
+                    );
+
+                const resetQuizBtn =
+                    document.getElementById(
+                        "resetQuizBtn"
+                    );
+
+                const quizScore =
+                    document.getElementById(
+                        "quizScore"
+                    );
+
+                const quizGrade =
+                    document.getElementById(
+                        "quizGrade"
+                    );
+
+                const quizRemark =
+                    document.getElementById(
+                        "quizRemark"
+                    );
+
+                const topicList =
+                    document.getElementById(
+                        "topicList"
+                    );
+
+
+                // =================================
+                // SUBJECT
+                // WHILE LOOP
+                // =================================
+
+                let subjectIndex = 0;
+
+                while (
+                    subjectIndex <
+                    subjectRadios.length
+                ) {
+
+                    subjectRadios[
+                        subjectIndex
+                    ].addEventListener(
+                        "change",
+                        function () {
+
+                            let i = 0;
+                            let selectedSubject = "";
+
+                            while (
+                                i <
+                                subjectRadios.length
+                            ) {
+
+                                if (
+                                    subjectRadios[i]
+                                        .checked
+                                ) {
+
+                                    selectedSubject =
+                                        subjectRadios[i]
+                                            .value;
+
+                                    break;
+                                }
+
+                                i++;
+                            }
+
+                            subjectDisplay.textContent =
+                                selectedSubject;
+
+                        }
+                    );
+
+                    subjectIndex++;
+                }
+
+
+                // =================================
+                // SUBMIT QUIZ
+                // FOR LOOP
+                // =================================
+
+                submitQuizBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        let score = 0;
+
+                        const questions = [
+
+                            {
+                                radios: q1radios,
+                                correct: "a"
+                            },
+
+                            {
+                                radios: q2radios,
+                                correct: "b"
+                            },
+
+                            {
+                                radios: q3radios,
+                                correct: "c"
+                            }
+
+                        ];
+
+
+                        // FOR LOOP
+                        for (
+                            let i = 0;
+                            i < questions.length;
+                            i++
+                        ) {
+
+                            const radios =
+                                questions[i].radios;
+
+                            const correct =
+                                questions[i].correct;
+
+
+                            for (
+                                let j = 0;
+                                j < radios.length;
+                                j++
+                            ) {
+
+                                if (
+                                    radios[j].checked &&
+                                    radios[j].value ===
+                                    correct
+                                ) {
+
+                                    score++;
+
+                                }
+
+                            }
+
+                        }
+
+
+                        // =================================
+                        // GRADE
+                        // =================================
+
+                        let grade = "-";
+
+                        if (score === 3) {
+
+                            grade = "A";
+
+                        } else if (score === 2) {
+
+                            grade = "B";
+
+                        } else if (score === 1) {
+
+                            grade = "C";
+
+                        } else {
+
+                            grade = "F";
+
+                        }
+
+
+                        // =================================
+                        // REMARK
+                        // DO...WHILE LOOP
+                        // =================================
+
+                        let remark = "";
+                        let remarkDone = false;
+
+                        do {
+
+                            if (score === 3) {
+
+                                remark = "Excellent";
+
+                            } else if (score === 2) {
+
+                                remark = "Good";
+
+                            } else if (score === 1) {
+
+                                remark =
+                                    "Needs Improvement";
+
+                            } else {
+
+                                remark =
+                                    "Please Try Again";
+
+                            }
+
+                            remarkDone = true;
+
+                        } while (!remarkDone);
+
+
+                        // =================================
+                        // TOPICS
+                        // =================================
+
+                        let selectedTopics = [];
+
+                        for (
+                            let i = 0;
+                            i < topicCheckboxes.length;
+                            i++
+                        ) {
+
+                            if (
+                                topicCheckboxes[i]
+                                    .checked
+                            ) {
+
+                                selectedTopics.push(
+                                    topicCheckboxes[i]
+                                        .value
+                                );
+
+                            }
+
+                        }
+
+
+                        // =================================
+                        // DISPLAY RESULTS
+                        // =================================
+
+                        quizScore.textContent =
+                            score;
+
+                        quizGrade.textContent =
+                            grade;
+
+                        quizRemark.textContent =
+                            remark;
+
+
+                        if (
+                            selectedTopics.length > 0
+                        ) {
+
+                            topicList.textContent =
+                                selectedTopics.join(
+                                    ", "
+                                );
+
+                        } else {
+
+                            topicList.textContent =
+                                "-";
+
+                        }
+
+                    }
+                );
+
+
+                // =================================
+                // RESET
+                // =================================
+
+                resetQuizBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        // Clear name
+                        studentName.value = "";
+
+
+                        // Clear subject
+                        for (
+                            let i = 0;
+                            i < subjectRadios.length;
+                            i++
+                        ) {
+
+                            subjectRadios[i]
+                                .checked = false;
+
+                        }
+
+
+                        // Clear Q1
+                        for (
+                            let i = 0;
+                            i < q1radios.length;
+                            i++
+                        ) {
+
+                            q1radios[i]
+                                .checked = false;
+
+                        }
+
+
+                        // Clear Q2
+                        for (
+                            let i = 0;
+                            i < q2radios.length;
+                            i++
+                        ) {
+
+                            q2radios[i]
+                                .checked = false;
+
+                        }
+
+
+                        // Clear Q3
+                        for (
+                            let i = 0;
+                            i < q3radios.length;
+                            i++
+                        ) {
+
+                            q3radios[i]
+                                .checked = false;
+
+                        }
+
+
+                        // Clear topics
+                        for (
+                            let i = 0;
+                            i < topicCheckboxes.length;
+                            i++
+                        ) {
+
+                            topicCheckboxes[i]
+                                .checked = false;
+
+                        }
+
+
+                        // Reset results
+                        subjectDisplay.textContent =
+                            "Selected Subject: None";
+
+                        quizScore.textContent = "0";
+
+                        quizGrade.textContent = "-";
+
+                        quizRemark.textContent = "-";
+
+                        topicList.textContent = "-";
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
+
+shopping bill calculator 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Bill Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h2>Shopping Bill Calculator</h2>
+
+    <div class="container">
+
+        <!-- SELECT ITEMS -->
+        <fieldset>
+
+            <legend>Select Items</legend>
+
+            <div class="items">
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="item1"
+                        class="item-checkbox"
+                        data-price="120"
+                    >
+                    Rice — Rs.120
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="item2"
+                        class="item-checkbox"
+                        data-price="95"
+                    >
+                    Oil — Rs.95
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="item3"
+                        class="item-checkbox"
+                        data-price="50"
+                    >
+                    Sugar — Rs.50
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="item4"
+                        class="item-checkbox"
+                        data-price="60"
+                    >
+                    Milk — Rs.60
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="item5"
+                        class="item-checkbox"
+                        data-price="40"
+                    >
+                    Bread — Rs.40
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="item6"
+                        class="item-checkbox"
+                        data-price="75"
+                    >
+                    Butter — Rs.75
+                </label>
+
+            </div>
+
+        </fieldset>
+
+
+        <!-- PAYMENT METHOD -->
+        <fieldset>
+
+            <legend>Select Payment Method</legend>
+
+            <div class="payment-options">
+
+                <label>
+                    <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="cash"
+                    >
+                    Cash (No Discount)
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="card"
+                    >
+                    Card (5% Discount)
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="upi"
+                    >
+                    UPI (10% Discount)
+                </label>
+
+            </div>
+
+            <div id="paymentDisplay">
+                Selected Payment: None
+            </div>
+
+        </fieldset>
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+            <button
+                type="button"
+                id="calculateBtn"
+            >
+                Calculate Bill
+            </button>
+
+            <button
+                type="button"
+                id="resetBillBtn"
+            >
+                Reset
+            </button>
+
+        </div>
+
+
+        <!-- BILL SUMMARY -->
+        <fieldset>
+
+            <legend>Bill Summary</legend>
+
+            <div class="summary-box">
+
+                <div class="amount-box">
+                    <span>Total Amount (Rs.)</span>
+                    <strong id="totalAmount">0</strong>
+                </div>
+
+                <div class="amount-box">
+                    <span>Discount (Rs.)</span>
+                    <strong id="discountAmount">0</strong>
+                </div>
+
+                <div class="amount-box">
+                    <span>Final Amount (Rs.)</span>
+                    <strong id="finalAmount">0</strong>
+                </div>
+
+            </div>
+
+            <div class="selected-title">
+                Selected Items:
+            </div>
+
+            <div id="itemList">
+                None
+            </div>
+
+        </fieldset>
+
+    </div>
+
+
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                // ====================================
+                // GET ELEMENTS
+                // ====================================
+
+                const itemCheckboxes =
+                    document.querySelectorAll(
+                        ".item-checkbox"
+                    );
+
+                const paymentRadios =
+                    document.querySelectorAll(
+                        'input[name="paymentMethod"]'
+                    );
+
+                const paymentDisplay =
+                    document.getElementById(
+                        "paymentDisplay"
+                    );
+
+                const calculateBtn =
+                    document.getElementById(
+                        "calculateBtn"
+                    );
+
+                const resetBillBtn =
+                    document.getElementById(
+                        "resetBillBtn"
+                    );
+
+                const totalAmount =
+                    document.getElementById(
+                        "totalAmount"
+                    );
+
+                const discountAmount =
+                    document.getElementById(
+                        "discountAmount"
+                    );
+
+                const finalAmount =
+                    document.getElementById(
+                        "finalAmount"
+                    );
+
+                const itemList =
+                    document.getElementById(
+                        "itemList"
+                    );
+
+
+                // ====================================
+                // PAYMENT RADIO BUTTONS
+                // REQUIRED: WHILE LOOP
+                // ====================================
+
+                let paymentIndex = 0;
+
+                while (
+                    paymentIndex <
+                    paymentRadios.length
+                ) {
+
+                    paymentRadios[
+                        paymentIndex
+                    ].addEventListener(
+                        "change",
+                        function () {
+
+                            let i = 0;
+                            let selectedPayment = "";
+
+                            // WHILE LOOP
+                            while (
+                                i <
+                                paymentRadios.length
+                            ) {
+
+                                if (
+                                    paymentRadios[i]
+                                        .checked
+                                ) {
+
+                                    selectedPayment =
+                                        paymentRadios[i]
+                                            .value;
+
+                                    break;
+                                }
+
+                                i++;
+                            }
+
+                            paymentDisplay.textContent =
+                                selectedPayment;
+
+                        }
+                    );
+
+                    paymentIndex++;
+
+                }
+
+
+                // ====================================
+                // CALCULATE BILL
+                // REQUIRED: FOR LOOP
+                // ====================================
+
+                calculateBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        let total = 0;
+
+                        let selectedItems = [];
+
+
+                        // FOR LOOP
+                        for (
+                            let i = 0;
+                            i < itemCheckboxes.length;
+                            i++
+                        ) {
+
+                            if (
+                                itemCheckboxes[i]
+                                    .checked
+                            ) {
+
+                                // Get price
+                                const price =
+                                    Number(
+                                        itemCheckboxes[i]
+                                            .dataset
+                                            .price
+                                    );
+
+                                total += price;
+
+
+                                // Get item name
+                                const label =
+                                    itemCheckboxes[i]
+                                        .parentElement
+                                        .textContent
+                                        .trim();
+
+                                selectedItems.push(
+                                    label
+                                );
+
+                            }
+
+                        }
+
+
+                        // =================================
+                        // FIND PAYMENT METHOD
+                        // WHILE LOOP
+                        // =================================
+
+                        let paymentMethod = "";
+                        let paymentIndex = 0;
+
+                        while (
+                            paymentIndex <
+                            paymentRadios.length
+                        ) {
+
+                            if (
+                                paymentRadios[
+                                    paymentIndex
+                                ].checked
+                            ) {
+
+                                paymentMethod =
+                                    paymentRadios[
+                                        paymentIndex
+                                    ].value;
+
+                                break;
+                            }
+
+                            paymentIndex++;
+
+                        }
+
+
+                        // =================================
+                        // CALCULATE DISCOUNT
+                        // =================================
+
+                        let discount = 0;
+
+                        if (
+                            paymentMethod === "upi"
+                        ) {
+
+                            discount =
+                                total * 0.10;
+
+                        } else if (
+                            paymentMethod === "card"
+                        ) {
+
+                            discount =
+                                total * 0.05;
+
+                        } else {
+
+                            discount = 0;
+
+                        }
+
+
+                        // =================================
+                        // FINAL AMOUNT
+                        // =================================
+
+                        const final =
+                            total - discount;
+
+
+                        // =================================
+                        // DISPLAY AMOUNTS
+                        // =================================
+
+                        totalAmount.textContent =
+                            total.toFixed(2);
+
+                        discountAmount.textContent =
+                            discount.toFixed(2);
+
+                        finalAmount.textContent =
+                            final.toFixed(2);
+
+
+                        // =================================
+                        // BUILD ITEM LIST
+                        // REQUIRED: DO...WHILE LOOP
+                        // =================================
+
+                        if (
+                            selectedItems.length === 0
+                        ) {
+
+                            itemList.textContent =
+                                "None";
+
+                        } else {
+
+                            let list = "";
+                            let itemIndex = 0;
+
+                            do {
+
+                                list +=
+                                    selectedItems[
+                                        itemIndex
+                                    ];
+
+                                if (
+                                    itemIndex <
+                                    selectedItems.length - 1
+                                ) {
+
+                                    list += ", ";
+
+                                }
+
+                                itemIndex++;
+
+                            } while (
+                                itemIndex <
+                                selectedItems.length
+                            );
+
+                            itemList.textContent =
+                                list;
+
+                        }
+
+                    }
+                );
+
+
+                // ====================================
+                // RESET
+                // ====================================
+
+                resetBillBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        // Uncheck all items
+                        for (
+                            let i = 0;
+                            i < itemCheckboxes.length;
+                            i++
+                        ) {
+
+                            itemCheckboxes[i]
+                                .checked = false;
+
+                        }
+
+
+                        // Clear payment radio buttons
+                        for (
+                            let i = 0;
+                            i < paymentRadios.length;
+                            i++
+                        ) {
+
+                            paymentRadios[i]
+                                .checked = false;
+
+                        }
+
+
+                        // Reset display
+                        paymentDisplay.textContent =
+                            "Selected Payment: None";
+
+                        totalAmount.textContent =
+                            "0";
+
+                        discountAmount.textContent =
+                            "0";
+
+                        finalAmount.textContent =
+                            "0";
+
+                        itemList.textContent =
+                            "None";
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
+
+css 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+
+    font-family: Arial, sans-serif;
+
+    background: #f1f3f6;
+    color: #222;
+}
+
+h2 {
+    text-align: center;
+
+    font-size: 20px;
+
+    margin: 5px 0 18px;
+}
+
+
+/* Main container */
+
+.container {
+    width: 700px;
+    max-width: 95%;
+
+    margin: auto;
+}
+
+
+/* Fieldsets */
+
+fieldset {
+    background: white;
+
+    border: 1px solid #d8d8d8;
+
+    border-radius: 5px;
+
+    padding: 10px;
+
+    margin-bottom: 10px;
+}
+
+legend {
+    font-size: 10px;
+
+    font-weight: bold;
+
+    padding: 0 5px;
+}
+
+
+/* Items */
+
+.items {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 6px;
+}
+
+.items label {
+    font-size: 10px;
+}
+
+
+/* Payment */
+
+.payment-options {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.payment-options label {
+    font-size: 10px;
+}
+
+#paymentDisplay {
+    margin-top: 6px;
+
+    font-size: 9px;
+}
+
+
+/* Buttons */
+
+.buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin: 8px 0 12px;
+}
+
+button {
+    border: none;
+
+    border-radius: 4px;
+
+    padding: 7px 28px;
+
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+#calculateBtn {
+    background: #4055e8;
+
+    color: white;
+}
+
+#calculateBtn:hover {
+    background: #3044d4;
+}
+
+#resetBillBtn {
+    background: #e5e7eb;
+
+    color: #222;
+}
+
+
+/* Summary */
+
+.summary-box {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 7px;
+}
+
+.amount-box {
+    background: #4055e8;
+
+    color: white;
+
+    border-radius: 4px;
+
+    text-align: center;
+
+    padding: 8px;
+}
+
+.amount-box span {
+    display: block;
+
+    font-size: 8px;
+
+    margin-bottom: 4px;
+}
+
+.amount-box strong {
+    display: block;
+
+    font-size: 15px;
+}
+
+
+/* Selected items */
+
+.selected-title {
+    margin-top: 10px;
+
+    font-size: 10px;
+
+    font-weight: bold;
+}
+
+#itemList {
+    margin-top: 4px;
+
+    font-size: 9px;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .items {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .payment-options {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .summary-box {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+fitness activitiy planner 
+ html 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fitness Activity Planner</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h2>Fitness Activity Planner</h2>
+
+    <div class="container">
+
+        <!-- FITNESS GOAL -->
+        <fieldset>
+
+            <legend>Select Fitness Goal</legend>
+
+            <div class="goal-options">
+
+                <label>
+                    <input
+                        type="radio"
+                        name="fitnessGoal"
+                        value="weightloss"
+                    >
+                    Weight Loss (400 cal/day)
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="fitnessGoal"
+                        value="muscle"
+                    >
+                    Muscle Gain (300 cal/day)
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="fitnessGoal"
+                        value="stamina"
+                    >
+                    Stamina (350 cal/day)
+                </label>
+
+            </div>
+
+            <div id="goalDisplay">
+                Selected Goal: None
+            </div>
+
+        </fieldset>
+
+
+        <!-- WORKOUT DAYS -->
+        <fieldset>
+
+            <legend>Select Workout Days</legend>
+
+            <div class="day-options">
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="day1"
+                        class="day-checkbox"
+                        value="Monday"
+                    >
+                    Monday
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="day2"
+                        class="day-checkbox"
+                        value="Tuesday"
+                    >
+                    Tuesday
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="day3"
+                        class="day-checkbox"
+                        value="Wednesday"
+                    >
+                    Wednesday
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="day4"
+                        class="day-checkbox"
+                        value="Thursday"
+                    >
+                    Thursday
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="day5"
+                        class="day-checkbox"
+                        value="Friday"
+                    >
+                    Friday
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="day6"
+                        class="day-checkbox"
+                        value="Saturday"
+                    >
+                    Saturday
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="day7"
+                        class="day-checkbox"
+                        value="Sunday"
+                    >
+                    Sunday
+                </label>
+
+            </div>
+
+        </fieldset>
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+            <button
+                type="button"
+                id="calcPlanBtn"
+            >
+                Calculate Plan
+            </button>
+
+            <button
+                type="button"
+                id="resetPlanBtn"
+            >
+                Reset
+            </button>
+
+        </div>
+
+
+        <!-- WEEKLY SUMMARY -->
+
+        <fieldset>
+
+            <legend>Weekly Summary</legend>
+
+            <div class="summary">
+
+                <div class="summary-box workout">
+                    <span>Workout Days</span>
+                    <strong id="workoutDays">0</strong>
+                </div>
+
+                <div class="summary-box calories">
+                    <span>Calories Burned</span>
+                    <strong id="caloriesBurned">0</strong>
+                </div>
+
+                <div class="summary-box rest">
+                    <span>Rest Days</span>
+                    <strong id="restDays">0</strong>
+                </div>
+
+            </div>
+
+        </fieldset>
+
+    </div>
+
+
+    <!-- =========================================
+         JAVASCRIPT INSIDE HTML
+    ========================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                // =====================================
+                // GET ELEMENTS
+                // =====================================
+
+                const fitnessRadios =
+                    document.querySelectorAll(
+                        'input[name="fitnessGoal"]'
+                    );
+
+                const dayCheckboxes =
+                    document.querySelectorAll(
+                        ".day-checkbox"
+                    );
+
+                const goalDisplay =
+                    document.getElementById(
+                        "goalDisplay"
+                    );
+
+                const calcPlanBtn =
+                    document.getElementById(
+                        "calcPlanBtn"
+                    );
+
+                const resetPlanBtn =
+                    document.getElementById(
+                        "resetPlanBtn"
+                    );
+
+                const workoutDays =
+                    document.getElementById(
+                        "workoutDays"
+                    );
+
+                const caloriesBurned =
+                    document.getElementById(
+                        "caloriesBurned"
+                    );
+
+                const restDays =
+                    document.getElementById(
+                        "restDays"
+                    );
+
+
+                // =====================================
+                // FITNESS GOAL
+                // REQUIRED: WHILE LOOP
+                // =====================================
+
+                let goalIndex = 0;
+
+                while (
+                    goalIndex < fitnessRadios.length
+                ) {
+
+                    fitnessRadios[
+                        goalIndex
+                    ].addEventListener(
+                        "change",
+                        function () {
+
+                            let i = 0;
+                            let selectedGoal = "";
+
+                            // WHILE LOOP
+                            while (
+                                i < fitnessRadios.length
+                            ) {
+
+                                if (
+                                    fitnessRadios[i]
+                                        .checked
+                                ) {
+
+                                    selectedGoal =
+                                        fitnessRadios[i]
+                                            .value;
+
+                                    break;
+                                }
+
+                                i++;
+                            }
+
+                            goalDisplay.textContent =
+                                selectedGoal;
+
+                        }
+                    );
+
+                    goalIndex++;
+
+                }
+
+
+                // =====================================
+                // CALCULATE PLAN
+                // REQUIRED: FOR LOOP
+                // =====================================
+
+                calcPlanBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        let selectedDays = 0;
+
+
+                        // FOR LOOP
+                        for (
+                            let i = 0;
+                            i < dayCheckboxes.length;
+                            i++
+                        ) {
+
+                            if (
+                                dayCheckboxes[i]
+                                    .checked
+                            ) {
+
+                                selectedDays++;
+
+                            }
+
+                        }
+
+
+                        // =================================
+                        // FIND SELECTED FITNESS GOAL
+                        // WHILE LOOP
+                        // =================================
+
+                        let selectedGoal = "";
+
+                        let goalIndex = 0;
+
+                        while (
+                            goalIndex <
+                            fitnessRadios.length
+                        ) {
+
+                            if (
+                                fitnessRadios[
+                                    goalIndex
+                                ].checked
+                            ) {
+
+                                selectedGoal =
+                                    fitnessRadios[
+                                        goalIndex
+                                    ].value;
+
+                                break;
+                            }
+
+                            goalIndex++;
+
+                        }
+                        let caloriesPerDay = 0;
+                        if (
+                            selectedGoal ===
+                            "weightloss"
+                        ) {
+                            caloriesPerDay = 400;
+                        } else if (
+                            selectedGoal ===
+                            "muscle"
+                        ) {
+                            caloriesPerDay = 300;
+                        } else if (
+                            selectedGoal ===
+                            "stamina"
+                        ) {
+                            caloriesPerDay = 350;
+                        }
+                        let calories = 0;
+                        let dayIndex = 0;
+                        do {
+                            if (
+                                dayIndex <
+                                selectedDays
+                            ) {
+                                calories +=
+                                    caloriesPerDay;
+                            }
+                            dayIndex++;
+                        } while (
+                            dayIndex < selectedDays
+                        );
+                        const remainingDays =
+                            7 - selectedDays;
+                        workoutDays.textContent =
+                            selectedDays;
+                        caloriesBurned.textContent =
+                            calories;
+                        restDays.textContent =
+                            remainingDays;
+                    }
+                );
+                resetPlanBtn.addEventListener(
+                    "click",
+                    function () {
+                        for (
+                            let i = 0;
+                            i < dayCheckboxes.length;
+                            i++
+                        ) {
+                            dayCheckboxes[i]
+                                .checked = false;
+                        }
+                        for (
+                            let i = 0;
+                            i < fitnessRadios.length;
+                            i++
+                        ) {
+                            fitnessRadios[i]
+                                .checked = false;
+                        }
+                        goalDisplay.textContent =
+                            "Selected Goal: None";
+                        workoutDays.textContent =
+                            "0";
+                        caloriesBurned.textContent =
+                            "0";
+                        restDays.textContent =
+                            "0";
+                    }
+                );
+            }
+        );
+    </script>
+</body>
+</html>
+
+css 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+
+    font-family: Arial, sans-serif;
+
+    background: #f1f3f6;
+    color: #222;
+}
+
+h2 {
+    text-align: center;
+
+    font-size: 20px;
+
+    margin: 5px 0 18px;
+}
+
+
+/* Main container */
+
+.container {
+    width: 700px;
+    max-width: 95%;
+
+    margin: auto;
+}
+
+
+/* Fieldsets */
+
+fieldset {
+    background: white;
+
+    border: 1px solid #d8d8d8;
+
+    border-radius: 5px;
+
+    padding: 10px;
+
+    margin-bottom: 10px;
+}
+
+legend {
+    font-size: 10px;
+
+    font-weight: bold;
+
+    padding: 0 5px;
+}
+
+
+/* Fitness goal */
+
+.goal-options {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 5px;
+}
+
+.goal-options label {
+    font-size: 9px;
+    white-space: nowrap;
+}
+
+#goalDisplay {
+    margin-top: 6px;
+
+    font-size: 9px;
+}
+
+
+/* Workout days */
+
+.day-options {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 5px;
+}
+
+.day-options label {
+    font-size: 9px;
+}
+
+
+/* Buttons */
+
+.buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin: 8px 0 12px;
+}
+
+button {
+    border: none;
+
+    border-radius: 4px;
+
+    padding: 7px 25px;
+
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+#calcPlanBtn {
+    background: #4055e8;
+
+    color: white;
+}
+
+#calcPlanBtn:hover {
+    background: #3044d4;
+}
+
+#resetPlanBtn {
+    background: #e5e7eb;
+
+    color: #222;
+}
+
+
+/* Summary */
+
+.summary {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 7px;
+}
+
+.summary-box {
+    color: white;
+
+    text-align: center;
+
+    border-radius: 4px;
+
+    padding: 8px;
+}
+
+.summary-box span {
+    display: block;
+
+    font-size: 8px;
+
+    margin-bottom: 4px;
+}
+
+.summary-box strong {
+    display: block;
+
+    font-size: 15px;
+}
+
+
+/* Summary colors */
+
+.workout {
+    background: #4055e8;
+}
+
+.calories {
+    background: #00a653;
+}
+
+.rest {
+    background: #f45b20;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .goal-options {
+        flex-direction: column;
+    }
+
+    .day-options {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .summary {
+        grid-template-columns: 1fr;
+    }
+
+}
+
