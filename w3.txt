@@ -1,0 +1,458 @@
+week 5
+<link rel="stylesheet" href="style.css"> 
+cod 1
+home rental problem html and css
+html 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Divakar's Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Divakar</h1>
+    </header>
+
+    <main>
+        <article>
+            <h2>About Me</h2>
+            <p>Hello! I am Divakar, a passionate web developer and technology enthusiast. I enjoy creating well-structured and accessible web pages using modern HTML5 and CSS techniques. I believe in continuous learning and improving my skills to stay updated with the latest trends in web development.</p>
+        </article>
+
+        <section>
+            <h2>My Hobbies</h2>
+            <ul>
+                <li>Reading books on technology and programming</li>
+                <li>Playing cricket on weekends with friends</li>
+                <li>Exploring new web design trends and frameworks</li>
+                <li>Traveling to new places and experiencing different cultures</li>
+                <li>Photography and capturing beautiful moments</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <h2>Contact Information</h2>
+        <p>Email: divakar@example.com</p>
+        <p>Phone: +91 98765 43210</p>
+    </footer>
+
+</body>
+</html>
+
+css
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 15px;
+    background-color: white;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+article {
+    background-color: #f2f2f2;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+ul {
+    padding-left: 30px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+cod 2 rachels website icon fab awesome
+html 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website Footer</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <h1>Welcome to Rachel's Website</h1>
+    <p>This is the main content area. Scroll down to view the footer.</p>
+
+    <footer>
+        <div class="social-media">
+            <a href="https://www.facebook.com" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+
+            <a href="https://twitter.com" class="social-icon">
+                <i class="fab fa-twitter"></i>
+            </a>
+
+            <a href="https://www.instagram.com" class="social-icon">
+                <i class="fab fa-instagram"></i>
+            </a>
+
+            <a href="https://www.linkedin.com" class="social-icon">
+                <i class="fab fa-linkedin"></i>
+            </a>
+        </div>
+
+        <div class="footer-links">
+            <a href="privacy.html" class="footer-link">Privacy Policy</a>
+            <span>|</span>
+            <a href="terms.html" class="footer-link">Terms of Service</a>
+        </div>
+
+        <p class="copyright">
+            &copy; 2025 Rachel's Website. All rights reserved.
+        </p>
+    </footer>
+
+</body>
+</html>
+
+css
+footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.social-media {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-icon {
+    color: white;
+    font-size: 25px;
+    text-decoration: none;
+}
+
+.social-icon:hover {
+    color: #1da1f2;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+}
+
+.copyright {
+    font-size: 12px;
+}
+
+cy 1
+tech innovators summit 
+html 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tech Innovators Summit</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header id="header">
+        <h1>Tech Innovators Summit</h1>
+    </header>
+
+    <section id="aboutSection">
+        <h2>About the Event</h2>
+        <p>
+            The Tech Innovators Summit is a premier gathering of technology
+            leaders, innovators, and visionaries from around the globe.
+            This event brings together industry experts to share insights
+            on the latest technological advancements, discuss emerging
+            trends, and explore opportunities for collaboration.
+            Join us for an inspiring day of learning, networking, and innovation.
+        </p>
+    </section>
+
+    <section id="speakersSection">
+        <h2>Speakers</h2>
+
+        <ul id="speakersList">
+            <li>Dr. Sarah Chen - Chief Technology Officer at InnovateTech</li>
+            <li>Michael Rodriguez - Founder of AI Solutions Global</li>
+            <li>Emma Watson - Head of Product at CloudSync Inc.</li>
+            <li>James Kumar - Blockchain Expert and Author</li>
+            <li>Dr. Lisa Anderson - Director of Cybersecurity Research</li>
+            <li>David Park - CEO of Future Systems</li>
+        </ul>
+    </section>
+
+    <section id="agendaSection">
+        <h2>Agenda</h2>
+
+        <ul id="agendaList">
+            <li>9:00 AM - Registration and Networking Breakfast</li>
+            <li>10:00 AM - Opening Keynote: The Future of Technology</li>
+            <li>11:00 AM - Panel Discussion: AI and Machine Learning Trends</li>
+            <li>12:30 PM - Lunch Break and Networking</li>
+            <li>2:00 PM - Workshop: Building Scalable Cloud Solutions</li>
+            <li>3:30 PM - Fireside Chat: Cybersecurity in the Modern Age</li>
+            <li>5:00 PM - Closing Remarks and Networking Reception</li>
+        </ul>
+    </section>
+
+</body>
+</html>
+
+css
+body {
+    font-family: Arial;
+    margin: 0;
+}
+
+#header {
+    background: #2c3e50;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+#aboutSection {
+    background: #ecf0f1;
+    padding: 40px 20px;
+    margin: 20px auto;
+}
+
+#speakersSection {
+    background: #e8f4f8;
+    padding: 20px;
+}
+
+#speakersList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#speakersList li {
+    background: white;
+    padding: 20px;
+    margin: 10px;
+    flex: 1 1 250px;
+}
+
+#agendaSection {
+    background: #fef9e7;
+    padding: 20px;
+    margin: 10px auto;
+}
+
+#agendaList li {
+    background: white;
+    padding: 15px;
+    margin: 10px;
+    border-left: 4px solid #2c3e50;
+}
+
+@media (max-width: 768px) {
+    #speakersList li {
+        flex: 1 1 100%;
+    }
+}
+
+pah 1 
+emily testing customers saying porfile 
+html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Testimonials</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section id="testimonialsSection">
+
+        <h1>What Our Customers Say</h1>
+
+        <div class="testimonialDiv">
+            <img src="https://i.pravatar.cc/150?img=47" alt="Customer">
+            <h4 class="customerName">Jessica Smith</h4>
+            <p class="customerReview">
+                Excellent service! The team was professional and delivered exactly what I needed.
+            </p>
+        </div>
+
+        <div class="testimonialDiv">
+            <img src="https://i.pravatar.cc/150?img=12" alt="Customer">
+            <h4 class="customerName">Michael Johnson</h4>
+            <p class="customerReview">
+                Outstanding experience from start to finish. They understood my requirements perfectly.
+            </p>
+        </div>
+
+        <div class="testimonialDiv">
+            <img src="https://i.pravatar.cc/150?img=44" alt="Customer">
+            <h4 class="customerName">Sarah Brown</h4>
+            <p class="customerReview">
+                Amazing quality and attention to detail. The project was completed on time.
+            </p>
+        </div>
+
+    </section>
+
+</body>
+</html>
+
+css
+body {
+    font-family: Arial;
+    background: #f8f8f8;
+}
+
+#testimonialsSection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    padding: 30px;
+}
+
+#testimonialsSection h1 {
+    width: 100%;
+    text-align: center;
+}
+
+.testimonialDiv {
+    background: white;
+    padding: 20px;
+    margin: 10px;
+    width: 250px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.testimonialDiv img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.testimonialDiv:hover img {
+    transform: scale(1.1);
+}
+
+.customerReview {
+    color: black;
+    transition: color 0.3s;
+}
+
+.testimonialDiv:hover .customerReview {
+    color: #4a96c7;
+}
+
+@media (max-width: 768px) {
+    #testimonialsSection {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+pah 2 
+product gallery electronics
+html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Gallery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2>Product Gallery</h2>
+
+    <section id="gallerySection">
+
+        <div class="productDiv">
+            <img class="productImg" src="headphones.jpg">
+            <p class="productDescription">
+                Premium Wireless Headphones - Experience crystal-clear sound quality with noise cancellation technology.
+            </p>
+        </div>
+
+        <div class="productDiv">
+            <img class="productImg" src="watch.jpg">
+            <p class="productDescription">
+                Smart Watch - Track your fitness goals and stay connected with notifications.
+            </p>
+        </div>
+
+        <div class="productDiv">
+            <img class="productImg" src="speaker.jpg">
+            <p class="productDescription">
+                Portable Speaker - Take your music anywhere with this compact Bluetooth speaker.
+            </p>
+        </div>
+
+        <div class="productDiv">
+            <img class="productImg" src="bag.jpg">
+            <p class="productDescription">
+                Laptop Backpack - Durable and stylish backpack designed to protect your laptop.
+            </p>
+        </div>
+
+        <div class="productDiv">
+            <img class="productImg" src="mouse.jpg">
+            <p class="productDescription">
+                Wireless Mouse - Ergonomic design with precision tracking for comfortable use.
+            </p>
+        </div>
+
+        <div class="productDiv">
+            <img class="productImg" src="hub.jpg">
+            <p class="productDescription">
+                USB-C Hub - Expand your connectivity with multiple ports.
+            </p>
+        </div>
+
+    </section>
+
+</body>
+</html>
+
+css
+#gallerySection {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.productDiv {
+    width: calc(50% - 1.5rem);
+    padding: 1rem;
+    margin: 0.75rem;
+    background: #f2f2f2;
+    box-sizing: border-box;
+}
+
+.productImg {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+}
+
+@media (max-width: 768px) {
+    .productDiv {
+        width: 100%;
+    }
+}
